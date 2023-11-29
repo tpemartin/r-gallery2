@@ -6,13 +6,13 @@ import FormLabel from '@mui/material/FormLabel';
 import { Stack } from '@mui/material';
 
 
-export default function GalleryCardVideo() {
+export default function GalleryCardVideo({video_url}) {
     return (
         <>
             <Stack direction="column" spacing={2}
             sx={{alignItems: "center"}}>
                 {/* <Language /> */}
-                <VideoEmbed />
+                <VideoEmbed url={video_url}/>
             </Stack>
         </>
 
@@ -42,12 +42,14 @@ function Language() {
         </>
     )
 }
-function VideoEmbed() {
-    const src = "https://www.youtube.com/embed/bMCiAKNUpTY"
-    const src2 = "https://player.vimeo.com/video/837954010" 
+function VideoEmbed({url}) {
+    // const src = "https://www.youtube.com/embed/bMCiAKNUpTY"
+    console.log(url)
+
+    const src2 = url
     return (
         <>
-            <iframe src={src2} //
+            <iframe src={url} //
             width={"100%"} height={200} 
             frameBorder={0} 
             allow="autoplay; fullscreen" 
@@ -56,4 +58,4 @@ function VideoEmbed() {
     )
 }
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/bMCiAKNUpTY?si=rnNmijqlgr_UzpGI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+{/* <iframe width="560" height="315" src="https://www.youtube.com/embed/bMCiAKNUpTY?si=rnNmijqlgr_UzpGI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> */}
