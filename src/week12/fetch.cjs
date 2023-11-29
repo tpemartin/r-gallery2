@@ -7,3 +7,5 @@ axios.get('https://script.googleusercontent.com/macros/echo?user_content_key=b9o
   .catch(function (error) {
     console.log(error);
   });
+
+dataX = ['Timestamp', 'Email Address', 'Name', 'School Id', 'Group', 'Title', 'Subtitle (optional)', 'Video link', 'Summary', 'Github code link', 'Video link 2', "Video link 2's language", "Video link's language"]

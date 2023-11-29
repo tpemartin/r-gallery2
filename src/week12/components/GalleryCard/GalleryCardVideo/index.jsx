@@ -11,7 +11,7 @@ export default function GalleryCardVideo() {
         <>
             <Stack direction="column" spacing={2}
             sx={{alignItems: "center"}}>
-                <Language />
+                {/* <Language /> */}
                 <VideoEmbed />
             </Stack>
         </>
@@ -43,9 +43,11 @@ function Language() {
     )
 }
 function VideoEmbed() {
+    const src = "https://www.youtube.com/embed/bMCiAKNUpTY"
+    const src2 = "https://player.vimeo.com/video/837954010" 
     return (
         <>
-            <iframe src="https://player.vimeo.com/video/877867752?h=15bd33812f" 
+            <iframe src={src2} //
             width={"100%"} height={200} 
             frameBorder={0} 
             allow="autoplay; fullscreen" 
@@ -53,3 +55,5 @@ function VideoEmbed() {
         </>
     )
 }
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bMCiAKNUpTY?si=rnNmijqlgr_UzpGI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

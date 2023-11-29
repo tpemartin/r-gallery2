@@ -1,5 +1,5 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { Box, Fade, Rating, Stack } from '@mui/material';
+import { Box, Fade, Link, Rating, Stack } from '@mui/material';
 import GradeIcon from '@mui/icons-material/Grade';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
@@ -16,7 +16,9 @@ export default function GalleryCardAction() {
         <>
             <Stack direction="row" spacing={2}
                 sx={{ justifyContent: "space-between" }}>
-                <GitHubIcon />
+                <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+                    <GitHubIcon />
+                </Link>
                 <ProjectRating ratingOpen={ratingOpen} />
                 <ActionControl ratingOpen={ratingOpen} onClick={toggleRatingOpen} />
             </Stack>
