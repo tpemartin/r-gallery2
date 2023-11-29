@@ -4,7 +4,7 @@ import GradeIcon from '@mui/icons-material/Grade';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 
-export default function GalleryCardAction() {
+export default function GalleryCardAction({link}) {
 
     const [ratingOpen, setRatingOpen] = useState(false)
 
@@ -16,7 +16,7 @@ export default function GalleryCardAction() {
         <>
             <Stack direction="row" spacing={2}
                 sx={{ justifyContent: "space-between" }}>
-                <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+                <Link href={link} target="_blank" rel="noopener noreferrer">
                     <GitHubIcon />
                 </Link>
                 <ProjectRating ratingOpen={ratingOpen} />
