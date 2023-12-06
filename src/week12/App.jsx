@@ -7,31 +7,26 @@ import axios from 'axios'
 import GalleryCardDescription from './components/GalleryCard/GalleryCardDescription'
 
 function App() {
-  
+ 
+  const [dataObjects, setDataObjects] = useState(null)
 
-  const [dataObjectsState, setDataObjectsState] = useState(null)
-
-
-  useEffect(()=>{
-    fetchData()
-      .then((dataObjects)=>{
-          console.log(dataObjects)
-          console.log(dataObjects[0])
-          setDataObjectsState(dataObjects)
-      })
-  },[])
-  
-
-
-  const ui = dataObjectsState ? <>
+  const ui = dataObjects? <> 
   {
-    dataObjectsState.map((project,i)=>{
-      return <GalleryCard project={project} number={i+1} key={i}/>
+    dataObjects.map((e,i)=>{
+      return <GalleryCard project={e} key={i}/>
     })
   }
-  </> : <div>loading...</div>
-  
-  // const ui = <GalleryCard project={dataObjects[1]}/>
+  </>: <div> loading....</div>
+
+  useEffect(() => {
+    fetchData().then(
+      (res) => {
+        setDataObjects(res)
+      }
+    )
+
+  },[])
+
   return (
     <>
     {ui}
