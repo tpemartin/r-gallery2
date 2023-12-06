@@ -18,6 +18,7 @@ export default defineConfig({
         week9: resolve(root, 'week9/index.html'),
         week10: resolve(root, 'week10/index.html'),
         week12: resolve(root, 'week12/index.html'),
+        week13: resolve(root, 'week13/index.html')
       }
     }
   }
