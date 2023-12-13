@@ -78,22 +78,33 @@ In `<Gallery>`, initialize a global variable, `ratings`, to an empty object.
 ```
 
 ---
-[<GalleryCard>](https://github.com/tpemartin/r-gallery2/blob/main/src/week14/components/Gallery/GalleryCard/index.jsx#L23)
-For each `<GalleryCard>`, add a state variable, `cardRating`, and let `ratings[number-1]` be equal to `cardRating` so that when the state variable is updated, the global variable is updated as well.
+
+[<GalleryCardAction>](https://github.com/tpemartin/r-gallery2/blob/main/src/week14/components/Gallery/GalleryCard/GalleryCardAction/index.jsx#L30-L49)
+
 ```
-  const [cardRating, setCardRating] = useState(null)
+function ProjectRating({ ratingOpen = false, group }) {
 
 
-  window.ratings[number-1] = cardRating
+    const [rate, setRate] = useState(null)
+
+
+    window.ratings[group] = rate
+
+
+    return (
+        <>
+            <Box>
+                <Fade in={ratingOpen} timeout={300}>
+                    <Rating name="project-rating" value={rate} max={5}
+                    onChange = {(e, v)=>{
+                        setRate(v)
+                    }}
+                    />
+                </Fade>
+            </Box>
+        </>
+    )
+}
 ```
 
-The update function `setCardRating` is passed to the `<GalleryCardAction>` component as a prop.
-```
-...
-          <GalleryCardAction github_link={project["Github link"]} setCardRating={setCardRating} />
-...
-```
-
----
-
-[<GalleryCardAction>](https://github.com/tpemartin/r-gallery2/blob/main/src/week14/components/Gallery/GalleryCard/GalleryCardAction/index.jsx)
+  - when a code line is involved with state variables, change of state value will automatically trigger a re-rendering of the component, which will cause the code to be executed again, causing the global variable to be updated again.
