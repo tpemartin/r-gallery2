@@ -17,7 +17,7 @@ export default function Gallery() {
     const ui = dataObjects ? <Grid container spacing={2}>
         {
             dataObjects.map((e, i) => {
-                return <GalleryGridCard project = {e} key={i} number={i+1}/>
+                return <GalleryGridCard project = {e} key={i} number={i+1} group={i+1}/>
             })
         }
     </Grid> : <div> loading....</div>

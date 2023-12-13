@@ -4,7 +4,7 @@ import GradeIcon from '@mui/icons-material/Grade';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 
-export default function GalleryCardAction({github_link, setCardRating}) {
+export default function GalleryCardAction({github_link, group}) {
 
     const [ratingOpen, setRatingOpen] = useState(false)
 
@@ -19,7 +19,7 @@ export default function GalleryCardAction({github_link, setCardRating}) {
                 <Link href={github_link} target="_blank" rel="noopener noreferrer">
                     <GitHubIcon />
                 </Link>
-                <ProjectRating ratingOpen={ratingOpen} setCardRating={setCardRating} />
+                <ProjectRating ratingOpen={ratingOpen} group={group} />
                 <ActionControl ratingOpen={ratingOpen} onClick={toggleRatingOpen} />
             </Stack>
         </>
@@ -27,9 +27,11 @@ export default function GalleryCardAction({github_link, setCardRating}) {
 }
 
 // transition: fade, https://mui.com/material-ui/transitions/#fade
-function ProjectRating({ ratingOpen = false, setCardRating }) {
+function ProjectRating({ ratingOpen = false, group }) {
 
     const [rate, setRate] = useState(null)
+
+    window.ratings[group] = rate
 
     return (
         <>
@@ -37,10 +39,7 @@ function ProjectRating({ ratingOpen = false, setCardRating }) {
                 <Fade in={ratingOpen} timeout={300}>
                     <Rating name="project-rating" value={rate} max={5}
                     onChange = {(e, v)=>{
-                        console.log(e)
-                        console.log(v)
                         setRate(v)
-                        setCardRating(v)
                     }}
                     />
                 </Fade>

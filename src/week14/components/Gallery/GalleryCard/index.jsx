@@ -6,11 +6,7 @@ import { Paper, Stack } from "@mui/material"
 import Grid from '@mui/material/Unstable_Grid2';
 import { useState } from "react";
 
-export function GalleryCard({project, number}) {
-
-  const [cardRating, setCardRating] = useState(null)
-
-  window.ratings[number-1] = cardRating
+export function GalleryCard({project, number, group}) {
 
   return (
     <>
@@ -20,18 +16,18 @@ export function GalleryCard({project, number}) {
           subtitle={project["Subtitle"]}/>
         <GalleryCardVideo link = {project["Video link"]} />
         <GalleryCardDescription description = {project["Description"]} />
-        <GalleryCardAction github_link={project["Github link"]} setCardRating={setCardRating} />
+        <GalleryCardAction github_link={project["Github link"]} group={group} />
       </Stack>
     </Paper>
     </>
   )
 }
 
-export default function GalleryGridCard({project, number}){
+export default function GalleryGridCard({project, number, group}){
 
   return <>
   <Grid xs={12} sm = {6} md={4} xl={3}>
-    <GalleryCard project={project} number={number}/>
+    <GalleryCard project={project} number={number} group={group}/>
   </Grid>
   </>
 
