@@ -19,7 +19,9 @@ export default defineConfig({
         week10: resolve(root, 'week10/index.html'),
         week12: resolve(root, 'week12/index.html'),
         week13: resolve(root, 'week13/index.html'),
-        week14: resolve(root, 'week14/index.html')
+        week14: resolve(root, 'week14/index.html'),
+        week15: resolve(root, 'week15/index.html'),
+        fetch: resolve(root, 'fetch/index.html')
       }
     }
   }
