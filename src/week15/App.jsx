@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <GoogleOAuthProvider clientId="235254569809-suckfgfkjcf9p4c04oofodo6ropcj6nf.apps.googleusercontent.com">
-        <AppBarLayout mainContent={<Gallery data={data} />} />
+        <AppBarLayout mainContent={<Gallery/>} />
       </GoogleOAuthProvider>;
     </>
   )
