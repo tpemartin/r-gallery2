@@ -10,13 +10,12 @@ import Container from '@mui/material/Container';
 import Fab from '@mui/material/Fab';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Fade from '@mui/material/Fade';
-import { GoogleLogin } from '@react-oauth/google';
 import { Button } from '@mui/material';
-import { useGoogleLogin } from '@react-oauth/google';
-import verifyUser from './verifyUser';
-import { useState } from 'react';
-
-const api_url = "https://script.google.com/macros/s/AKfycbz5eAaQl0CK_BDgjnI0mNHLIwkANf4aSw60ompvAw5HjPidK9BE5E1KBbwbsS3Ejq3HrA/exec"
+import AppLogin from './AppLogin';
+import EvaluateMembers from './EvaluateMemebers';
+import SaveIcon from '@mui/icons-material/Save';
+import BackupIcon from '@mui/icons-material/Backup';
+import { Tooltip } from '@mui/material';
 
 function ScrollTop(props) {
   const { children, window } = props;
@@ -66,19 +65,12 @@ ScrollTop.propTypes = {
 
 export default function AppBarLayout({ mainContent }) {
 
+  const [hasSubmit, setHasSubmit] = React.useState(false)
 
-  const login = useGoogleLogin({
-    onSuccess: tokenResponse => {
-      console.log(tokenResponse)
-      const result = verifyUser(api_url, tokenResponse.access_token)
-      result.then(res => {
-        console.log(res)
-      })
-    }});
-
-
-
-
+  const handleSubmit = () => {
+    window.assessment.submit=true
+    setHasSubmit(true)
+  }
   return (
     <React.Fragment>
       <CssBaseline />
@@ -87,9 +79,11 @@ export default function AppBarLayout({ mainContent }) {
           <Typography variant="h6" component="div">
             Scroll to see button
           </Typography>
-
-          <Button color="inherit" onClick={() => login()}>login</Button>
-
+          <ButtonSubmit onClick={handleSubmit} />
+          <ButtonSave />
+          <EvaluateMembers disabled={hasSubmit} />
+          <AppLogin />
+          {/* <Button color="inherit" onClick={() => login()}><LoginIcon/></Button> */}
         </Toolbar>
       </AppBar>
       <Toolbar id="back-to-top-anchor" />
@@ -105,4 +99,28 @@ export default function AppBarLayout({ mainContent }) {
       </ScrollTop>
     </React.Fragment>
   );
+}
+
+
+function ButtonSave() {
+  return <>
+    <Tooltip title="儲存">
+      <Button color="inherit" onClick={()=>{update_record_assessment()}} ><SaveIcon /></Button>
+    </Tooltip>
+
+  </>
+}
+
+function ButtonSubmit({onClick}) {
+  return <>
+    <Tooltip title="送出成績">
+      <Button color="inherit" onClick={onClick}><BackupIcon /></Button>
+    </Tooltip>
+
+  </>
+}
+
+function update_record_assessment(){
+  window.assessment.assessment.members=window.eval_members
+  window.assessment.assessment.project=window.ratings
 }
