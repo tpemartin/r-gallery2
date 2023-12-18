@@ -10,12 +10,9 @@ import Container from '@mui/material/Container';
 import Fab from '@mui/material/Fab';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Fade from '@mui/material/Fade';
-import { Button } from '@mui/material';
 import AppLogin from './AppLogin';
-import EvaluateMembers from './EvaluateMemebers';
-import SaveIcon from '@mui/icons-material/Save';
-import BackupIcon from '@mui/icons-material/Backup';
-import { Tooltip } from '@mui/material';
+import Gallery from '../Gallery';
+import { useState } from 'react';
 
 function ScrollTop(props) {
   const { children, window } = props;
@@ -63,14 +60,16 @@ ScrollTop.propTypes = {
 };
 
 
-export default function AppBarLayout({ mainContent }) {
+export default function AppBarLayout() {
 
-  const [hasSubmit, setHasSubmit] = React.useState(false)
+  const [ratingData, setRatingData] = useState(Object())
 
-  const handleSubmit = () => {
-    window.assessment.submit=true
-    setHasSubmit(true)
-  }
+  // const [hasSubmit, setHasSubmit] = React.useState(false)
+
+  // const handleSubmit = () => {
+  //   window.assessment.submit=true
+  //   setHasSubmit(true)
+  // }
   return (
     <React.Fragment>
       <CssBaseline />
@@ -79,17 +78,13 @@ export default function AppBarLayout({ mainContent }) {
           <Typography variant="h6" component="div">
             Scroll to see button
           </Typography>
-          <ButtonSubmit onClick={handleSubmit} />
-          <ButtonSave />
-          <EvaluateMembers disabled={hasSubmit} />
-          <AppLogin />
-          {/* <Button color="inherit" onClick={() => login()}><LoginIcon/></Button> */}
+          <AppLogin setRatingData={setRatingData} />
         </Toolbar>
       </AppBar>
       <Toolbar id="back-to-top-anchor" />
       <Container>
         <Box sx={{ my: 2 }}>
-          {mainContent}
+          <Gallery ratingData={ratingData}/>
         </Box>
       </Container>
       <ScrollTop >
@@ -102,23 +97,6 @@ export default function AppBarLayout({ mainContent }) {
 }
 
 
-function ButtonSave() {
-  return <>
-    <Tooltip title="儲存">
-      <Button color="inherit" onClick={()=>{update_record_assessment()}} ><SaveIcon /></Button>
-    </Tooltip>
-
-  </>
-}
-
-function ButtonSubmit({onClick}) {
-  return <>
-    <Tooltip title="送出成績">
-      <Button color="inherit" onClick={onClick}><BackupIcon /></Button>
-    </Tooltip>
-
-  </>
-}
 
 function update_record_assessment(){
   window.assessment.assessment.members=window.eval_members
