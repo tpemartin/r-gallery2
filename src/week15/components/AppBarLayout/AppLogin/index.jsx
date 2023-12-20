@@ -9,10 +9,8 @@ import EvalutationControl from "../EvaluateMemebers";
 window.assessment = Object()
 window.assessment.user = null
 window.assessment.group = null
-// window.assessment.assessment = {
-//   "project": null,
-//   "members": null,
-// }
+window.assessment.members=null
+window.assessment.project=null
 window.assessment.submit = false
 
 export default function AppLogin({setRatingData = null}) {
@@ -27,24 +25,26 @@ export default function AppLogin({setRatingData = null}) {
       console.log(tokenResponse)
       verifyUser(tokenResponse.access_token)
         .then(res => {
+          console.log(res)
           if (res.status === 200) {
             setHasLogin(true)
             if (res.data) {
-              console.log(res.data)
               window.assessment.user = res.data.user
               window.assessment.group = res.data.group
 
               setUserData(res.data)
               setIsClassStudent(true)
               if (res.data.assessment) {
-                console.log('res.data.assessment')
-                console.log(res.data.assessment)
-                console.log(window.assessment.assessment)
-                window.assessment.assessment = res.data.assessment
-                console.log(window.assessment.assessment)
-                window.eval_members = window.assessment.assessment.members
-                window.ratings = window.assessment.assessment.project
-                setRatingData(res.data.assessment.project)
+                
+                window.tt = res.data.assessment.project
+                const projectAssessment = JSON.parse(res.data.assessment.project)
+                console.log("projectAssessment",projectAssessment)
+                window.assessment.project = JSON.parse(res.data.assessment.project)
+                window.assessment.members = res.data.assessment.members
+                console.log(window.assessment)
+                window.eval_members = window.assessment.members
+                window.ratings = projectAssessment
+                setRatingData(projectAssessment)
               }
             } else {
               setIsClassStudent(false)
