@@ -17,14 +17,8 @@ import { useState } from 'react';
 
 export default function AppBarLayout() {
 
-  const [ratingData, setRatingData] = useState(Object())
+  const [assessment, setAssessment] = useState(null)
 
-  // const [hasSubmit, setHasSubmit] = React.useState(false)
-
-  // const handleSubmit = () => {
-  //   window.assessment.submit=true
-  //   setHasSubmit(true)
-  // }
   return (
     <React.Fragment>
       <CssBaseline />
@@ -33,13 +27,13 @@ export default function AppBarLayout() {
           <Typography variant="h6" component="div">
             Scroll to see button
           </Typography>
-          <AppLogin setRatingData={setRatingData} />
+          <AppLogin setAssessment={setAssessment}/>
         </Toolbar>
       </AppBar>
       <Toolbar id="back-to-top-anchor" />
       <Container>
         <Box sx={{ my: 2 }}>
-          <Gallery ratingData={ratingData}/>
+          <Gallery assessment={assessment}/>
         </Box>
       </Container>
       <ScrollTop >

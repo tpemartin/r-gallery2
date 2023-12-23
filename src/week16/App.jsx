@@ -10,6 +10,14 @@ import { useGoogleLogin } from '@react-oauth/google'
 import { Button } from '@mui/material'
 import RowRadioButtonsGroup from './components/FormControl'
 
+window.assessment = {
+  user: null,
+  group: null,
+  members: null,
+  projects: null,
+  submit: false
+}
+
 function App() {
 
   return (
