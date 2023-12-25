@@ -4,8 +4,11 @@ import GradeIcon from '@mui/icons-material/Grade';
 import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from 'react';
 
-export default function GalleryCardAction({ github_link, ratingControl }) {
+export default function GalleryCardAction({ github_link, group, assessment }) {
 
+    // const ratingControl = (assessment.group && assessment.group===group) ?1:0
+    console.log(assessment && assessment.group && assessment.group === group)
+    const ratingControl = (assessment && assessment.group && assessment.group === group) ? <></> : <RatingControl group={group} assessment={assessment}/> 
 
     return (
         <>
@@ -24,43 +27,40 @@ export function RatingControl({ group, assessment }) {
 
     console.log(assessment)
     const [ratingOpen, setRatingOpen] = useState(false)
-    const rating = window.assessment.projects ? window.assessment.projects[group] : null
+    // const rating = null
 
-    const [rate, setRate] = useState(rating)
-
+    const [rate, setRate] = useState(
+        (assessment && assessment.projects && assessment.projects[group]) ? assessment.projects[group] : null
+    )
+    console.log(rate)
     const toggleRatingOpen = () => {
         setRatingOpen(ratingOpen => !ratingOpen)
     }
     useEffect(() => {
-        if (assessment && assessment.projects) {
-            const rating = assessment.projects[group]
-            setRate(rating)
+        if (assessment && assessment.projects && assessment.projects[group]) {
+            setRate(assessment && assessment.projects && assessment.projects[group])
         }
     }, [assessment, group])
 
-    const ratingUI = (assessment && assessment.group === group)? <></>:
-    <Fade in={ratingOpen} timeout={300}>
-        <Rating name="project-rating" value={rate} max={5} disabled={false || (assessment && assessment.submit) ||
-        (assessment && assessment.group === group)}
-        onChange={(e, v) => {
-            setRate(v)
-            // log rating if window.assessment.projects exists
-            if (window.assessment.projects) {
-                window.assessment.projects[group] = v
-            }
-        }}
-    />
-    </Fade>
-    const projectRating = <>
-        <Box>
-            
-                {ratingUI}
-            
-        </Box>
-    </>
+    const ratingUI = (assessment && assessment.projects && assessment.projects[group] === group) ? <></> :
+        <Fade in={ratingOpen} timeout={300}>
+            <Rating name="project-rating" value={rate} max={5} disabled={false || (assessment && assessment.submit) ||
+                (assessment && assessment.group === group)}
+                onChange={(e, v) => {
+                    setRate(v)
+                    // log rating if window.assessment.projects exists
+                    if (window.assessment.projects) {
+                        window.assessment.projects[group] = v
+                    }
+                }}
+            />
+        </Fade>
+
     return (
         <>
-            {projectRating}
+            <Box>
+                {ratingUI}
+            </Box>
             <ActionControl ratingOpen={ratingOpen} onClick={toggleRatingOpen} />
         </>
     )
@@ -77,7 +77,7 @@ export function ProjectRating({ ratingOpen, group }) {
         <>
             <Box>
                 <Fade in={ratingOpen} timeout={300}>
-                    <Rating name="project-rating" value={rate} max={5}
+                    <Rating name="project-rating" value={rate} max={5} 
                         onChange={(e, v) => {
                             setRate(v)
                             // log rating if window.assessment.projects exists

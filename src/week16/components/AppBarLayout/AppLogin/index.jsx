@@ -17,6 +17,7 @@ export default function AppLogin({setAssessment}) {
   const login = useGoogleLogin({
     onSuccess: tokenResponse => {
       console.log(tokenResponse)
+      window.accessToken = tokenResponse.access_token
       verifyUser(tokenResponse.access_token)
         .then(res => {
           console.log(res)
@@ -26,7 +27,8 @@ export default function AppLogin({setAssessment}) {
 
               window.assessment.user = res.data.user
               window.assessment.group = res.data.group
-              
+              window.assessment.members = res.data.members
+              window.assessment.projects = res.data.assessment.projects ? res.data.assessment.projects : window.assessment_project_template
               setUserData(res.data)
               setIsClassStudent(true)
               if (res.data.assessment) {
@@ -34,11 +36,15 @@ export default function AppLogin({setAssessment}) {
                 // window.tt = res.data.assessment.project
                 // const projectAssessment = JSON.parse(res.data.assessment.project)
                 // console.log("projectAssessment",projectAssessment)
-                window.assessment.projects = res.data.assessment.projects
+                console.log(res.data)
+                window.assessment.projects = res.data.assessment.projects ? res.data.assessment.projects : window.assessment_project_template
                 window.assessment.members = res.data.assessment.members
                 window.assessment.submit = res.data.assessment.submit
                 window.eval_members = window.assessment.members 
                 setAssessment(window.assessment)
+                console.log('login')
+                console.log(
+                   assessment)
                 // console.log(window.assessment)
                 // window.eval_members = window.assessment.members
                 // window.ratings = projectAssessment
@@ -66,7 +72,7 @@ export default function AppLogin({setAssessment}) {
   if (hasLogin) {
     // setRatingData(window.ratings)
     console.log(userData)
-    googleLogin = <UserButtonGroup userData={userData} isClassStudent={isClassStudent} />
+    googleLogin = userData ? <UserButtonGroup userData={userData} isClassStudent={isClassStudent} /> : <Visitor />
   } else {
     googleLogin = loginBtn
   }

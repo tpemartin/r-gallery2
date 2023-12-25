@@ -21,10 +21,10 @@ export default function Gallery({ assessment }) {
             dataObjects.map((e, i) => {
 
                 const group = e['Group']
-                const ratingControl = (assessment && assessment.group===group) ? <></>:<RatingControl group={group} assessment={assessment}/>
+                // const ratingControl = (assessment && assessment.group===group) ? <></>:<RatingControl group={group} assessment={assessment}/>
 
                 return <GalleryGridCard project={e} key={group} number={i + 1} group={group}
-                ratingControl={ratingControl} />
+                assessment={assessment} />
             })
         }
     </Grid> : <div> loading....</div>
@@ -35,6 +35,10 @@ export default function Gallery({ assessment }) {
                 setDataObjects(res)
 
                 console.log(res)
+                // create window.assessment.projects template
+                window.assessment_project_template = Object()
+                res.map(e=>e.Group).forEach(e=>window.assessment_project_template[e]=null)
+                
                 // const obj = {};
                 // const groups = res.map(e => e['Group'])
                 // for (const key of groups) {

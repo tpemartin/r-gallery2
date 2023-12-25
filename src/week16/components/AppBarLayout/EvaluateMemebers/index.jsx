@@ -9,12 +9,30 @@ import { Tooltip } from '@mui/material';
 import { Button } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import BackupIcon from '@mui/icons-material/Backup';
+import { submit_save_Assessment } from '../AppLogin/verifyUser';
+import ButtonSave from './ButtonSave';
+import ButtonSubmit from './ButtonSubmit';
 
 
+export default function EvalutationControl({ membersAssessment }) {
 
-//Object()
-// const members =Object.keys(window.assessment.members)
-// members.forEach(member => {window.eval_members[member] = null})
+    console.log(membersAssessment)
+    console.log(window.assessment && window.assessment.submit)
+    const [hasSubmit, setHasSubmit] = React.useState(window.assessment && window.assessment.submit)
+
+    const handleSubmit = () => {
+        window.assessment.submit = true
+        console.log('submit')
+        console.log(window.assessment)
+        submit_assessment()
+        setHasSubmit(true)
+    }
+    return <>
+        <ButtonSubmit setHasSubmit={setHasSubmit} disabled={hasSubmit}/>
+        <ButtonSave disabled={hasSubmit} />
+        <EvaluateMembers membersAssessment={membersAssessment} disabled={hasSubmit} />
+    </>
+}
 
 function EvaluateMembers({ membersAssessment, disabled = false }) {
 
@@ -35,22 +53,6 @@ function EvaluateMembers({ membersAssessment, disabled = false }) {
         </EvaluationDialog>
 
     );
-}
-
-export default function EvalutationControl({ membersAssessment }) {
-
-    console.log(membersAssessment)
-    const [hasSubmit, setHasSubmit] = React.useState(false)
-
-    const handleSubmit = () => {
-        window.assessment.submit = true
-        setHasSubmit(true)
-    }
-    return <>
-        <ButtonSubmit onClick={handleSubmit} />
-        <ButtonSave />
-        <EvaluateMembers membersAssessment={membersAssessment} disabled={hasSubmit} />
-    </>
 }
 
 function EvaluateMember({ member }) {
@@ -104,20 +106,30 @@ function RateRadio({ value }) {
     </>
 }
 
-function ButtonSave() {
+function ButtonSave2({disabled}) {
     return <>
         <Tooltip title="儲存">
-            <Button color="inherit" onClick={() => { update_record_assessment() }} ><SaveIcon /></Button>
+            <Button color="inherit" onClick={() => { save_assessment() }} disabled={disabled}><SaveIcon /></Button>
         </Tooltip>
 
     </>
 }
 
-function ButtonSubmit({ onClick }) {
+function ButtonSubmit2({ onClick, disabled }) {
     return <>
         <Tooltip title="送出成績">
-            <Button color="inherit" onClick={onClick}><BackupIcon /></Button>
+            <Button color="inherit" onClick={onClick} disabled = {disabled}><BackupIcon /></Button>
         </Tooltip>
 
     </>
+}
+function save_assessment() {
+    console.log(
+        {accessToken: window.accessToken,
+        assessment: window.assessment}
+    )
+    submit_save_Assessment(window.accessToken, window.assessment)
+}
+function submit_assessment(){
+    submit_save_Assessment(window.accessToken, window.assessment, true)
 }
