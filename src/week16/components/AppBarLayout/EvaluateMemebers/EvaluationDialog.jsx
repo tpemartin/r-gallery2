@@ -45,8 +45,7 @@ export default function EvaluationDialog({ children, disabled=false }) {
                     {children}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Subscribe</Button>
+                    <Button onClick={handleClose}>OK</Button>
                 </DialogActions>
             </Dialog>
         </React.Fragment>

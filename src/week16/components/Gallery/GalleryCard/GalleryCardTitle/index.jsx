@@ -3,7 +3,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import { Avatar, Stack, Typography } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 
-export default function GalleryCardTitle({number, title, subtitle}) {
+export default function GalleryCardTitle({number, title, subtitle, group}) {
     return (
         <>
             <Stack direction="row" spacing={2}
@@ -11,7 +11,7 @@ export default function GalleryCardTitle({number, title, subtitle}) {
             alignItems: "center"}}>
                 <GroupNumber groupNumber={number} />
                 <Title title={title} subtitle={subtitle}/>
-                <Members />
+                <Members group={group} />
             </Stack>
         </>
     )
@@ -36,10 +36,12 @@ function Title({ title = "Title", subtitle = "Subtitle" }) {
         </>
     )
 }
-function Members() {
+function Members({group}) {
     return (
         <>
-            <GroupsIcon />
+            <Typography>
+                {group}
+            </Typography>
         </>
     )
 }

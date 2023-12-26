@@ -14,7 +14,7 @@ export function GalleryCard({project, number, group, assessment}) {
     <Paper elevation={3} sx={{p: 3}}> 
       <Stack direction="column" spacing={2}>
         <GalleryCardTitle number = {number} title={project["Title"]}
-          subtitle={project["Group"]}/>
+          subtitle={null} group={group}/>
         <GalleryCardVideo link = {project["Video link"]} />
         <GalleryCardDescription description = {project["Description"]} />
         <GalleryCardAction github_link={project["Github link"]} group={group} assessment={assessment} />

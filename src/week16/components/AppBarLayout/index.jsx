@@ -23,11 +23,13 @@ export default function AppBarLayout() {
     <React.Fragment>
       <CssBaseline />
       <AppBar>
-        <Toolbar>
+        <Toolbar sx={{justifyContent: "space-between"}}>
           <Typography variant="h6" component="div">
-            Scroll to see button
+            Project Gallery
           </Typography>
+          <Box sx={{display: "flex", alignItems: "center"}}>
           <AppLogin setAssessment={setAssessment}/>
+          </Box>
         </Toolbar>
       </AppBar>
       <Toolbar id="back-to-top-anchor" />
