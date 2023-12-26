@@ -1,6 +1,9 @@
 import axios from "axios";
+import config from "../../config.json";
 
-const dataUrl = "https://script.google.com/macros/s/AKfycbyIZNwTCjqHQr5oOjlOrBWIpfZJ1suttwiSa3Z7_DyEq_unO3X-3KhhVItf3z-ruEVDKw/exec"
+// const dataUrl = "https://script.google.com/macros/s/AKfycbyIZNwTCjqHQr5oOjlOrBWIpfZJ1suttwiSa3Z7_DyEq_unO3X-3KhhVItf3z-ruEVDKw/exec"
+const dataUrl = config.uri
+console.log(config)
 
 export function create_dataObjects_from_data(data){
 
